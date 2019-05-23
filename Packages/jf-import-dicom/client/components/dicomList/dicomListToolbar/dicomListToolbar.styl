@@ -1,0 +1,35 @@
+@import "{jf:design}/app"
+
+.dicomlistToolbar
+  margin: 0 30px
+
+  .filter-options
+    display: inline-block
+    margin-right: 30px
+
+    .wrapperLabel
+      display: inline-block
+      width: 220px
+      margin: 0 5px
+
+      &>.select2
+        width: 220px !important
+
+  button
+    margin: 0 5px
+
+    &.btn
+      theme('background-color', '$activeColor')
+      color: #fff
+      cursor: pointer
+      font-size: 15px
+      font-weight: bold
+      height: 37px
+      text-align: center
+
+      &[disabled]
+        /* opacity: 0.5 */
+        cursor: not-allowed
+
+      &:hover:enabled
+        theme('background-color', '$defaultColor')

@@ -1,0 +1,19 @@
+<template name="userlistRow">
+    <tr class="userlistRow noselect {{#if selected}}active{{/if}}">
+        <td class="userId">
+            {{userId}}
+        </td>
+        <td class="userName">
+            {{profile.fullName}}
+        </td>
+        <td class="userTime">
+            {{formatDateTime createdAt}}
+        </td>
+        <td class="lastLoginDate">
+            {{formatDateTime lastLoginDate}}
+        </td>
+        <td class="userOrgs">
+            {{userOrgs}}
+        </td>
+    </tr>
+</template>

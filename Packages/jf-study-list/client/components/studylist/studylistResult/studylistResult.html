@@ -1,0 +1,110 @@
+<template name="studylistResult">
+    <div class="studyListToolbar clearfix">
+        <div class="header pull-left">影像列表</div>
+        <div class="studyCount pull-right">{{numberOfStudies}}</div>
+        <div class="pull-right">{{>studylistToolbar filterOptions=instance.filterOptions}}</div>
+    </div>
+    <div class="theadBackground">
+    </div>
+    <div id="studyListContainer">
+        <table id="tblStudyList" class="studylistResult table noselect ">
+            <thead>
+                <tr>
+                    <th class="status">
+                        <div id="_status" class="sortingCell">
+                            <span>状态</span>
+                            <i class="{{sortingColumnsIcons.status}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="status" class="form-control studylist-search" items=statusItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="serialNumber">
+                        <div id="_serialNumber" class="sortingCell">
+                            <span>流水号</span>
+                            <i class="{{sortingColumnsIcons.serialNumber}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="serialNumber" class="form-control studylist-search"}}
+                    </th>
+                    <th class="patientName">
+                        <div id="_patientName" class="sortingCell">
+                            <span>患者姓名</span>
+                            <i class="{{sortingColumnsIcons.patientName}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientName" class="form-control studylist-search"}}
+                    </th>
+                    <th class="patientSex">
+                        <div id="_patientSex" class="sortingCell">
+                            <span>性别</span>
+                            <i class="{{sortingColumnsIcons.patientSex}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="patientSex" class="form-control studylist-search" items=patientSexItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="patientAge">
+                        <div id="_patientAge" class="sortingCell ">
+                            <span>年龄</span>
+                            <i class="{{sortingColumnsIcons.patientAge}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientAge" class="form-control studylist-search"}}
+                    </th>
+                    <th class="dicomTime">
+                        <div id="_dicomTime" class="sortingCell">
+                            <span>检查时间</span>
+                            <i class="{{sortingColumnsIcons.dicomTime}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="dicomTime" class="form-control studylist-search"}}
+                    </th>
+                    <th class="createdAt">
+                        <div id="_createdAt" class="sortingCell">
+                            <span>导入时间</span>
+                            <i class="{{sortingColumnsIcons.createdAt}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="createdAt" class="form-control studylist-search"}}
+                    </th>
+                    <th class="organizationId">
+                        <div id="_organizationId" class="sortingCell">
+                            <span>机构名称</span>
+                            <i class="{{sortingColumnsIcons.organizationId}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="organizationId" class="form-control studylist-search" items=orgItems placeholder='请选择'}}
+                    </th>
+                    <th class="modalities">
+                        <div id="_modalities" class="sortingCell">
+                            <span>设备</span>
+                            <i class="{{sortingColumnsIcons.modalities}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="modalities" class="form-control studylist-search" items=modalityItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="bodyPartExamined">
+                        <div id="_bodyPartExamined" class="sortingCell">
+                            <span>部位</span>
+                            <i class="{{sortingColumnsIcons.bodyPartExamined}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="bodyPartExamined" class="form-control studylist-search"}}
+                    </th>
+                    <th class="description">
+                        <div id="_description" class="sortingCell">
+                            <span>检查描述</span>
+                            <i class="{{sortingColumnsIcons.description}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="description" class="form-control studylist-search"}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="studyListData">
+                {{#each study in studies}}
+                    {{>studylistStudy study}}
+                {{/each}}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        {{>paginationArea instance.paginationData}}
+
+        {{#if instance.subscriptionsReady}}
+            {{#unless numberOfStudies}}
+                <div class="notFound">No matching results</div>
+            {{/unless}}
+        {{else}}
+            {{>loadingText}}
+        {{/if}}
+    </div>
+</template>

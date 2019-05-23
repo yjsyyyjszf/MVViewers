@@ -1,0 +1,31 @@
+<template name="reportSidebar">
+  <div class="report-sidebar">
+    <div class="report-header clearfix">
+      {{#if hasHiReport}}
+        <div class="origin-report {{#if hiSelected}} selected {{/if}}">
+          <span>原始报告</span>
+            <div class='hi-notifier'></div>
+        </div>
+      {{/if}}
+      <div class="complete-report {{#if not hiSelected}} selected {{/if}}">即时报告</div>
+    </div>
+    <div class="report-content">
+      {{#scrollArea class='scroll-area flex-grow fit' scrollStep=63}}
+        {{#let reportData = reportContent}}
+          <div class="content-item">
+              <div class="item-header">影像所见：</div>
+              <div class="item-details findings">
+                {{choose reportData.findings '暂无数据'}}
+              </div>
+          </div>
+          <div class="content-item">
+              <div class="item-header">诊断建议：</div>
+              <div class="item-details diagnose">
+                  {{choose reportData.diagnose '暂无数据'}}
+              </div>
+          </div>
+        {{/let}}
+      {{/scrollArea}}
+    </div>
+  </div>
+</template>

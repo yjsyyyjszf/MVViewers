@@ -1,0 +1,51 @@
+<template name="orderlistRow">
+    <tr class="orderlistRow noselect {{#if selected}}active{{/if}}">
+        <td class="status {{statusClass}}">
+            {{status}}
+        </td>
+        <td class="serialNumber">
+            {{serialNumber}}
+        </td>
+        <td class="lesionCode">
+            {{getLesionName lesionCode}}
+        </td>
+        <td class="patientName">
+            {{formatPatientName patientName}}
+        </td>
+        <td class="patientSex">
+            {{formatPatientSex patientSex}}
+        </td>
+        <td class="patientAge">
+            {{formatPatientAge patientAge}}
+        </td>
+        <td class="modalities">
+            {{modalities}}
+        </td>
+        <td class="bodyPartExamined">
+            {{bodyPartExamined}}
+        </td>
+        <td class="orderTime">
+            {{formatDateTime orderTime}}
+        </td>
+        <td class="studyOrgId">
+            {{getOrganizationName studyOrgId}}
+        </td>
+        <td class="reporterId">
+            {{getUserName reporterId}}
+        </td>
+        <td class="reportEnd">
+            {{formatDateTime reportEnd}}
+        </td>
+        <td class="reportRating">
+            {{#if isValidNumber reportRating}}
+              {{>starsRating rating=reportRating}}
+            {{/if}}
+        </td>
+        <td class="reviewerId">
+            {{getUserName reviewerId}}
+        </td>
+        <td class="reviewEnd">
+            {{formatDateTime reviewEnd}}
+        </td>
+    </tr>
+</template>

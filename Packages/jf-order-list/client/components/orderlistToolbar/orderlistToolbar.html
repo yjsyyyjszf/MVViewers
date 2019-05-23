@@ -1,0 +1,12 @@
+<template name="orderlistToolbar">
+  <div class='orderlistToolbar'>
+    {{#button id='startOrders' class='btn p-x-2' disabled=disableStartBtn}}查看{{/button}}
+    {{#if eq (session 'locationType') 'SCP'}}
+      {{#button id='denyOrders' class='btn p-x-2' disabled=disableDenyBtn}}拒绝{{/button}}
+    {{else}}
+      {{#button id='cancelOrders' class='btn p-x-2' disabled=disableCancelBtn}}撤回{{/button}}
+      {{#button id='removeOrders' class='btn p-x-2' disabled=disableRemoveBtn}}删除{{/button}}
+      {{#button id='exportOrders' class='btn p-x-2' disabled=disableExportBtn}}导出{{/button}}
+    {{/if}}
+  </div>
+</template>

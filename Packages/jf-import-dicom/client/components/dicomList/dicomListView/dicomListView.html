@@ -1,0 +1,114 @@
+<template name="dicomListView">
+    <div class="dicomListToolbar clearfix">
+        <div class="header pull-left">导入列表</div>
+        <div class="dicomCount pull-right">{{numberOfRecords}}</div>
+        <div class="pull-right">{{>dicomListToolbar paginationData=instance.paginationData statusData=instance.statusData orgItems=instance.orgItems filterOptions=instance.filterOptions}}</div>
+    </div>
+    <div class="theadBackground">
+    </div>
+    <div id="dicomListContainer">
+        <table id="tblDicomList" class="dicomListResult table noselect ">
+            <thead>
+                <tr>
+                  <th class="status">
+                      <div id="_status" class="sortingCell">
+                          <span>状态</span>
+                          <i class="{{sortingColumnsIcons.status}}">&nbsp;</i>
+                      </div>
+                      {{>inputSelect id="status" class="form-control dicomList-search" items=statusItems placeholder='请选择' hideSearch=true}}
+                  </th>
+                    <th class="qidoLevel">
+                        <div id="_qidoLevel" class="sortingCell">
+                            <span>层级</span>
+                            <i class="{{sortingColumnsIcons.qidoLevel}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="qidoLevel" class="form-control dicomList-search" items=qidoLevelItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="accessionNumber">
+                        <div id="_accessionNumber" class="sortingCell">
+                            <span>影像号</span>
+                            <i class="{{sortingColumnsIcons.accessionNumber}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="accessionNumber" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="patientName">
+                        <div id="_patientName" class="sortingCell">
+                            <span>患者姓名</span>
+                            <i class="{{sortingColumnsIcons.patientName}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientName" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="patientSex">
+                        <div id="_patientSex" class="sortingCell">
+                            <span>性别</span>
+                            <i class="{{sortingColumnsIcons.patientSex}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="patientSex" class="form-control dicomList-search" items=patientSexItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="patientAge">
+                        <div id="_patientAge" class="sortingCell ">
+                            <span>年龄</span>
+                            <i class="{{sortingColumnsIcons.patientAge}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientAge" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="dicomTime">
+                        <div id="_dicomTime" class="sortingCell">
+                            <span>检查时间</span>
+                            <i class="{{sortingColumnsIcons.dicomTime}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="dicomTime" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="institutionName">
+                        <div id="_institutionName" class="sortingCell">
+                            <span>机构名称</span>
+                            <i class="{{sortingColumnsIcons.institutionName}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="institutionName" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="modalities">
+                        <div id="_modalities" class="sortingCell">
+                            <span>设备</span>
+                            <i class="{{sortingColumnsIcons.modalities}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="modalities" class="form-control dicomList-search" items=modalityItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="bodyPartExamined">
+                        <div id="_bodyPartExamined" class="sortingCell">
+                            <span>部位</span>
+                            <i class="{{sortingColumnsIcons.bodyPartExamined}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="bodyPartExamined" class="form-control dicomList-search"}}
+                    </th>
+                    <th class="description">
+                        <div id="_description" class="sortingCell">
+                            <span>检查描述</span>
+                            <i class="{{sortingColumnsIcons.description}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="description" class="form-control dicomList-search"}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="dicomListData">
+                {{#each dicom in dicoms}}
+                    {{>dicomListRow dicom}}
+                {{/each}}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        {{>paginationArea instance.paginationData}}
+
+        {{#if session "showLoadingText"}}
+            {{>loadingText}}
+        {{else}}
+            {{#if session "serverError"}}
+                <div class="notFound">There was an error fetching dicoms</div>
+            {{else}}
+                {{#unless numberOfRecords}}
+                    <div class="notFound">No matching results</div>
+                {{/unless}}
+            {{/if}}
+        {{/if}}
+    </div>
+</template>

@@ -1,0 +1,30 @@
+@require '{jf:design}/app'
+
+.measurementTableTimepointCell
+  theme('border-left', '%s solid $uiBorderColor' % $uiBorderThickness)
+  cursor: pointer
+  padding: 0 10px
+  position: relative
+
+  .loading-spinner
+    display: none
+    font-size: 16px
+    position: absolute
+    right: 5px
+    top: 3px
+
+  &.loading .loading-spinner
+    display: block
+
+  &
+    theme('color', '$textPrimaryColor')
+
+  &:hover
+    theme('color', '$activeColor')
+    
+  .prop-node
+    .prop-name
+      theme('color', '$textSecondaryColor')
+      
+    &:hover
+      theme('color', '$activeColor')

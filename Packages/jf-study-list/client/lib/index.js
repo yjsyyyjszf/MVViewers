@@ -1,0 +1,11 @@
+import './viewStudies.js';
+import './applyStudies.js';
+import './exportStudies.js';
+import './queryStudies.js';
+import './removeStudies.js';
+import './applySelectedStudies.js';
+import './exportSelectedStudies.js';
+import './getSelectedStudies.js';
+import './removeSelectedStudies.js';
+import './viewSelectedStudies.js';
+import './retrieveStudies.js';

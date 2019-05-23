@@ -1,0 +1,138 @@
+<template name="orderlistView">
+    <div class="orderListToolbar clearfix">
+        <div class="header pull-left">{{tableTitle}}</div>
+        <div class="studyCount pull-right">{{numberOfOrders}}</div>
+        <div class="pull-right">{{>orderlistToolbar filterOptions=instance.filterOptions}}</div>
+    </div>
+    <div class="theadBackground">
+    </div>
+    <div id="orderlistContainer">
+        <table id="tblOrderList" class="orderlistResult table noselect ">
+            <thead>
+                <tr>
+                    <th class="status">
+                        <div id="_status" class="sortingCell">
+                            <span>状态</span>
+                            <i class="{{sortingColumnsIcons.status}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="status" class="form-control orderlist-search" items=statusItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="serialNumber">
+                        <div id="_serialNumber" class="sortingCell ">
+                            <span>流水号</span>
+                            <i class="{{sortingColumnsIcons.serialNumber}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="serialNumber" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="lesionCode">
+                        <div id="_lesionCode" class="sortingCell ">
+                            <span>标注类型</span>
+                            <i class="{{sortingColumnsIcons.lesionCode}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="lesionCode" class="form-control orderlist-search" items=lesionCodeItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="patientName">
+                        <div id="_patientName" class="sortingCell">
+                            <span>患者姓名</span>
+                            <i class="{{sortingColumnsIcons.patientName}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientName" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="patientSex">
+                        <div id="_patientSex" class="sortingCell">
+                            <span>性别</span>
+                            <i class="{{sortingColumnsIcons.patientSex}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="patientSex" class="form-control orderlist-search" items=patientSexItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="patientAge">
+                        <div id="_patientAge" class="sortingCell ">
+                            <span>年龄</span>
+                            <i class="{{sortingColumnsIcons.patientAge}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="patientAge" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="modalities">
+                        <div id="_modalities" class="sortingCell">
+                            <span>设备</span>
+                            <i class="{{sortingColumnsIcons.modalities}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="modalities" class="form-control orderlist-search" items=modalityItems placeholder='请选择' hideSearch=true}}
+                    </th>
+                    <th class="bodyPartExamined">
+                        <div id="_bodyPartExamined" class="sortingCell">
+                            <span>部位</span>
+                            <i class="{{sortingColumnsIcons.bodyPartExamined}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="bodyPartExamined" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="orderTime">
+                        <div id="_orderTime" class="sortingCell">
+                            <span>申请时间</span>
+                            <i class="{{sortingColumnsIcons.orderTime}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="orderTime" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="studyOrgId">
+                        <div id="_studyOrgId" class="sortingCell">
+                            <span>申请机构</span>
+                            <i class="{{sortingColumnsIcons.studyOrgId}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="studyOrgId" class="form-control orderlist-search" items=studyOrgItems placeholder='请选择'}}
+                    </th>
+                    <th class="reporterId">
+                        <div id="_reporterId" class="sortingCell">
+                            <span>标注医生</span>
+                            <i class="{{sortingColumnsIcons.reporterId}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="reporterId" class="form-control orderlist-search" items=reportPhyItems placeholder='请选择'}}
+                    </th>
+                    <th class="reportEnd">
+                        <div id="_reportEnd" class="sortingCell">
+                            <span>标注时间</span>
+                            <i class="{{sortingColumnsIcons.reportEnd}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="reportEnd" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="reportRating">
+                        <div id="_reportRating" class="sortingCell">
+                            <span>标注评价</span>
+                            <i class="{{sortingColumnsIcons.reportRating}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="reportRating" class="form-control orderlist-search"}}
+                    </th>
+                    <th class="reviewerId">
+                        <div id="_reviewerId" class="sortingCell">
+                            <span>审核医生</span>
+                            <i class="{{sortingColumnsIcons.reviewerId}}">&nbsp;</i>
+                        </div>
+                        {{>inputSelect id="reviewerId" class="form-control orderlist-search" items=reviewPhyItems placeholder='请选择'}}
+                    </th>
+                    <th class="reviewEnd">
+                        <div id="_reviewEnd" class="sortingCell">
+                            <span>审核时间</span>
+                            <i class="{{sortingColumnsIcons.reviewEnd}}">&nbsp;</i>
+                        </div>
+                        {{>inputText id="reviewEnd" class="form-control orderlist-search"}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="orderlistData">
+                {{#each order in orders}}
+                    {{>orderlistRow (clone order this)}}
+                {{/each}}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        {{>paginationArea instance.paginationData}}
+
+        {{#if instance.subscriptionsReady}}
+            {{#unless numberOfOrders}}
+                <div class="notFound">No matching results</div>
+            {{/unless}}
+        {{else}}
+            {{>loadingText}}
+        {{/if}}
+    </div>
+</template>
